@@ -40,21 +40,21 @@ app.get('/books/:id', async (req, res) =>  {
   }
 });
 
-app.post('/books', async (req, res) => {
+app.put('/books/:id', async (req, res) => {
   try {
-    const { title, author, publisher } = req.body;
-    if (!title || !author || !publisher) {
-      return res.status(400).json({ message: 'Title, author, and publisher are required' });
+    if (!req.body.title || !req.body.author || !req.body.publisher) {
+      return res.status(400).send({ message: 'Send all reqired fields : title : author : publisher' });
     }
-    const newBook = {
-      title,
-      author,
-      publisher,
-    };
 
-    const book = await Book.create(newBook); // Assuming 'Book' is the correct model name
-    return res.status(201).send(book);
+    const { id } = req.params;
+
+    const result = await Book.findByIdAndUpdate(id, req.body);
+    if (!result) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    return res.status(200).send({ message: 'Book updated sucefully ' });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 });
