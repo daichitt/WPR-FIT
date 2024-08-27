@@ -5,37 +5,17 @@ import Book from './models/bookModel.js';
 
 const PORT = process.env.PORT || 4000; // 4000 is the default port if PORT is not set
 const mongoDBURL = process.env.MONGODBURL;
+import bookRoute from './routes/booksRoute.js';
 
 
 const app = express();
+app.use(express.json());
 app.get('/', (req, res) =>  {
     console.log(res);
     res.send('Hello World');
 });
+app.use('/books', bookRoute);
 
-app.get('/books', async (req, res) => {
-    const books = await Book.find();
-    res.json(books);
-});
-
-app.post('/book', async (req, res) => {
-  try {
-    if (
-    !req.body.title || req.body.auther || req.body.pullisher
-    ) {
-      return res.status(400).json({ message: 'Title, author and publisher are required' });
-    }
-    const newBook = {
-      title: req.body.title,
-      auther: req.body.auther,
-      pullisher: req.body.pullisher,
-    };
-    const book = await book.create(newBook);
-    res.status(201).json(book);
-  } catch(error){
-    res.status(500).json({ message: error.message });
-  }
-});
 
 mongoose
   .connect(mongoDBURL)
