@@ -14,6 +14,18 @@ app.get('/', (req, res) =>  {
     res.send('Hello World');
 });
 
+app.get('/books', async (req, res) =>  {
+  try {
+    const books = await Book.find();
+    res.status(200).json({
+      count : books.length,
+      data: books
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.post('/books', async (req, res) => {
   try {
     const { title, author, publisher } = req.body;
