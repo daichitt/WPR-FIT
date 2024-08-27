@@ -45,9 +45,7 @@ app.put('/books/:id', async (req, res) => {
     if (!req.body.title || !req.body.author || !req.body.publisher) {
       return res.status(400).send({ message: 'Send all reqired fields : title : author : publisher' });
     }
-
     const { id } = req.params;
-
     const result = await Book.findByIdAndUpdate(id, req.body);
     if (!result) {
       return res.status(404).json({ message: 'Book not found' });
@@ -58,6 +56,24 @@ app.put('/books/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+app.delete('/books/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Book.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    return res.status(200).send({ message: 'Book deleted sucefully ' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
 
 mongoose
   .connect(mongoDBURL)
