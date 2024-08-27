@@ -35,10 +35,11 @@ TODO
 
 ### And coding style tests
 
-TODO 
+- Better to use ESLint
 
 ```
-TODO 
+git pull --rebase origin main
+Insted of git pull origin main
 ```
 
 ## Deployment
