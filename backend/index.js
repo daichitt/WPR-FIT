@@ -1,7 +1,17 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'
-import Book from './models/bookModel.js';
+import cors from 'cors';
+
+app.use(cors());
+// middleware
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+  })
+);
 
 const PORT = process.env.PORT || 4000; // 4000 is the default port if PORT is not set
 const mongoDBURL = process.env.MONGODBURL;
