@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'
 import cors from 'cors';
+const app = express();
 
 app.use(cors());
 // middleware
@@ -18,7 +19,6 @@ const mongoDBURL = process.env.MONGODBURL;
 import bookRoute from './routes/booksRoute.js';
 
 
-const app = express();
 app.use(express.json());
 app.get('/', (req, res) =>  {
     console.log(res);
