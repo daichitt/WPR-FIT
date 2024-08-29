@@ -7,19 +7,20 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+- Node.js
+
+### Set up environment 
+### backend 
 ```
-npm init -y
 cd backend
+npm init -y
 npm start dev 
 ```
-
-### Installing
-
-TODO 
-
+### frontend
 ```
-TODO 
+cd frontend
+npm i
+npm start dev 
 ```
 
 ## Running the tests
